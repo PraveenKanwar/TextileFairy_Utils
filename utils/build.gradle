@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    // SDK & Tool Version Used For Compiling
+    compileSdkVersion TARGET_SDK
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    // Application Specifications
+    defaultConfig {
+        minSdkVersion MIN_SDK
+        targetSdkVersion TARGET_SDK
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        testInstrumentationRunner ANDROID_JUNIT_RUNNER
+    }
+
+    buildTypes {
+        release {
+            // Enables/Disable Code Shrinking, Obfuscation & Optimization Only For Release Build.
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(PROGUARD_ANDROID_OPTIMIZE), PROGUARD_RULES
+            debuggable false
+            jniDebuggable false
+            renderscriptDebuggable false
+        }
+    }
+
+    // Specifying Java Compiler Version
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // Specify Kotlin JVM Target
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    // Lint Options To Be Followed
+    lintOptions {
+        checkAllWarnings true
+        warningsAsErrors true
+        abortOnError true
+    }
+}
+
+dependencies {
+    // Manual Added Library
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Require Library To Be Downloaded Via Gradle From Repository Defined In Project Gradle File
+    //implementation moduleDependencies.couchbase
+    implementation moduleDependencies.appCompat
+    implementation moduleDependencies.coreKTX
+    implementation moduleDependencies.gson
+    implementation moduleDependencies.javaX
+    implementation moduleDependencies.kotlin
+    implementation moduleDependencies.okHttp3
+    implementation moduleDependencies.okHttp3LoggingInterceptor
+    implementation moduleDependencies.okio
+    implementation moduleDependencies.retrofit2
+    implementation moduleDependencies.retrofit2Converter
+    implementation moduleDependencies.retrofit2RxJavaAdapter
+    implementation moduleDependencies.rootBeer
+    implementation moduleDependencies.rxAndroid
+    implementation moduleDependencies.rxJava
+    implementation moduleDependencies.rxKotlin
+    implementation moduleDependencies.safteyNet
+
+    // Runs On JVM Pure Java Test Cases
+    testImplementation moduleTestDependencies.junit
+
+    // Requires Android Framework For Testing Android Components
+    androidTestImplementation moduleTestDependencies.junit
+    androidTestImplementation moduleTestDependencies.runner
+    androidTestImplementation moduleTestDependencies.espresso
+}
+
